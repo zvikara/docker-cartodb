@@ -16,15 +16,15 @@ How to build the container:
 --------------
 
 ```
-git clone https://github.com/fleu42/docker-cartodb.git
-docker build -t="fleu42/docker-cartodb" docker-cartodb/
+git clone https://github.com/cortesimone/docker-cartodb
+docker build -t="cortesimone/docker-cartodb" docker-cartodb/
 ```
 
 How to run the container:
 --------------
 
 ```
-docker run -t -i -p 3000:3000 -p 8080:8080 -p 8181:8181 fleu42/docker-cartodb 
+docker run -t -i -p 3000:3000 -p 8080:8080 -p 8181:8181 cortesimone/docker-cartodb 
 ```
 
 You need to add `config/cartodb.nginx.proxy.conf` to /etc/nginx/conf.d/. 
