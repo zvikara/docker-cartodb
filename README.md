@@ -27,12 +27,14 @@ How to run the container:
 docker run -t -i -p 3000:3000 -p 8080:8080 -p 8181:8181 cortesimone/docker-cartodb 
 ```
 
-You need to add `config/cartodb.nginx.proxy.conf` to /etc/nginx/conf.d/. 
+Config changes:
+--------------
+
+1. On your base system you need to add `config/cartodb.nginx.proxy.conf`, found in this repository to `/etc/nginx/conf.d/`. 
 This will setup a reverse proxy for the CartoDB/imports (3000), SQL Api (8080) and Map api (8181).
 
-You need to add cartodb.localhost, dev.cartodb.localhost and example.cartodb.localhost to your hosts file.
+2. You need to add cartodb.localhost, dev.cartodb.localhost and example.cartodb.localhost to your `/etc/hosts` file.
 
 Visit http://dev.cartodb.localhost or http://example.cartodb.localhost 
 
 Any organization member you create should also be added to your hosts file.
-
