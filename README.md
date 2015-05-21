@@ -24,7 +24,7 @@ How to run the container:
 --------------
 
 ```
-docker run -t -i -p 3000:3000 -p 8080:8080 -p 8181:8181 -v /home/simone/develop/prodatamarket/local-cartodb-data:/var/lib/postgresql/9.3/main cortesimone/docker-cartodb
+docker run -t -i -p 3000:3000 -p 8080:8080 -p 8181:8181 -v /home/develop/local-cartodb-data:/var/lib/postgresql/9.3/main cortesimone/docker-cartodb
 ```
 
 Config changes:
