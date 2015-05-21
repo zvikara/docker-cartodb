@@ -1,15 +1,15 @@
 docker-cartodb
 ==============
 
-That container provides a fully working cartodb development solution
+This docker container provides a fully working cartodb development solution
 without the installation hassle.
 
-Just run and connect to http://dev.cartodb.localhost:3000/login into you browser.
+Just run the commands and then connect to http://dev.cartodb.localhost:3000/login with your browser.
 
-The default login is dev/pass. You may want to change it when you'll run
-it for the outside.
+The default login is dev/pass1234. You may want to change it when you'll run
+making it available from the outside world.
 
-It also creates an 'example' organization with owner login admin4example/pass.
+It also creates an 'example' organization with owner login admin4example/pass1234.
 Organization members can be created on http://example.cartodb.localhost:3000/u/admin4example/organization
 
 How to build the container:
@@ -34,7 +34,6 @@ Config changes:
 This will setup a reverse proxy for the CartoDB/imports (3000), SQL Api (8080) and Map api (8181).
 2. You need to add cartodb.localhost, dev.cartodb.localhost and example.cartodb.localhost to your `/etc/hosts` file.
 3.  if you copy the content of `/var/lib/postgresql/9.3/main` to a local folder, which you mount while executing `docker run` you will get persistent data
-
 
 Visit http://dev.cartodb.localhost or http://example.cartodb.localhost 
 
