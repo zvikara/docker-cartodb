@@ -2,6 +2,9 @@
 
 PORT=3000
 
+chown -R postgres:postgres /var/lib/postgresql/9.3/main
+chmod 700 /var/lib/postgresql/9.3/main
+
 service postgresql start
 service redis-server start
 service varnish start
