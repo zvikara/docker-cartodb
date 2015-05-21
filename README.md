@@ -24,7 +24,7 @@ How to run the container:
 --------------
 
 ```
-docker run -t -i -p 3000:3000 -p 8080:8080 -p 8181:8181 cortesimone/docker-cartodb 
+docker run -t -i -p 3000:3000 -p 8080:8080 -p 8181:8181 -v /home/simone/develop/prodatamarket/local-cartodb-data:/var/lib/postgresql/9.3/main cortesimone/docker-cartodb
 ```
 
 Config changes:
@@ -32,8 +32,9 @@ Config changes:
 
 1. On your host system you need to add `config/cartodb.nginx.proxy.conf`, found in this repository to `/etc/nginx/conf.d/`. 
 This will setup a reverse proxy for the CartoDB/imports (3000), SQL Api (8080) and Map api (8181).
-
 2. You need to add cartodb.localhost, dev.cartodb.localhost and example.cartodb.localhost to your `/etc/hosts` file.
+3.  if you copy the content of `/var/lib/postgresql/9.3/main` to a local folder, which you mount while executing `docker run` you will get persistent data
+
 
 Visit http://dev.cartodb.localhost or http://example.cartodb.localhost 
 
