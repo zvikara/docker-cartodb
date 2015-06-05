@@ -16,15 +16,15 @@ How to build the container:
 --------------
 
 ```
-git clone https://github.com/geoplex/docker-cartodb
-docker build -t="geoplex/docker-cartodb" docker-cartodb/
+git clone https://github.com/cortesimone/docker-cartodb
+docker build -t="cortesimone/docker-cartodb" docker-cartodb/
 ```
 
 How to run the container:
 --------------
 
 ```
-docker run -t -i -p 3000:3000 -p 8080:8080 -p 8181:8181 -v /home/develop/local-cartodb-data:/var/lib/postgresql/9.3/main geoplex/docker-cartodb
+docker run -t -i -p 3000:3000 -p 8080:8080 -p 8181:8181 -v /home/develop/local-cartodb-data:/var/lib/postgresql/9.3/main cortesimone/docker-cartodb
 ```
 
 Config changes:
