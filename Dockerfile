@@ -42,6 +42,7 @@ RUN curl -L https://get.rvm.io | bash -s stable --ruby
 RUN echo 'source /usr/local/rvm/scripts/rvm' >> /etc/bash.bashrc
 RUN /bin/bash -l -c rvm requirements
 ENV PATH /usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+RUN echo rvm_max_time_flag=15 >> ~/.rvmrc
 RUN /bin/bash -l -c 'rvm install 1.9.3-p547 --patch railsexpress'
 RUN /bin/bash -l -c 'rvm use 1.9.3-p547 --default'
 RUN /bin/bash -l -c 'gem install bundle archive-tar-minitar'
@@ -74,14 +75,10 @@ RUN service postgresql start && /bin/su postgres -c \
 # Install CartoDB API
 RUN git clone git://github.com/CartoDB/CartoDB-SQL-API.git && \
       cd CartoDB-SQL-API && ./configure && npm install
-ADD ./config/CartoDB-dev.js \
-      /CartoDB-SQL-API/config/environments/development.js
 
 # Install Windshaft
 RUN git clone git://github.com/CartoDB/Windshaft-cartodb.git && \
       cd Windshaft-cartodb && ./configure && npm install && mkdir logs
-ADD ./config/WS-dev.js \
-      /Windshaft-cartodb/config/environments/development.js
 
 # Install CartoDB (with the bug correction on bundle install)
 RUN git clone git://github.com/CartoDB/cartodb.git && \
@@ -94,6 +91,10 @@ RUN git clone git://github.com/CartoDB/cartodb.git && \
             /bin/bash -l -c 'bundle install'"
 
 # Copy confs
+ADD ./config/CartoDB-dev.js \
+      /CartoDB-SQL-API/config/environments/development.js
+ADD ./config/WS-dev.js \
+      /Windshaft-cartodb/config/environments/development.js
 ADD ./config/app_config.yml /cartodb/config/app_config.yml
 ADD ./config/database.yml /cartodb/config/database.yml
 ADD ./create_dev_user /cartodb/script/create_dev_user
