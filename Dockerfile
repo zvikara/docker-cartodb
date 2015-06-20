@@ -8,8 +8,8 @@ MAINTAINER Adrien Fleury <fleu42@gmail.com>
 RUN dpkg-reconfigure locales && \
       locale-gen en_US.UTF-8 && \
       update-locale LANG=en_US.UTF-8
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # Preparing apt
@@ -17,9 +17,9 @@ RUN apt-get update && \
       useradd -m -d /home/cartodb -s /bin/bash cartodb && \
       apt-get install -y -q software-properties-common && \
       add-apt-repository -y ppa:chris-lea/node.js && \
-      apt-get update 
+      apt-get update
 
-# Installing stuff 
+# Installing stuff
 RUN apt-get install -y -q build-essential checkinstall unp zip libgeos-c1 \
       libgeos-dev libjson0 python-simplejson libjson0-dev proj-bin \
       proj-data libproj-dev postgresql-9.3 postgresql-client-9.3 \
@@ -59,7 +59,7 @@ RUN git clone https://github.com/CartoDB/pg_schema_triggers.git && \
       make all install && \
       sed -i \
       "/#shared_preload/a shared_preload_libraries = 'schema_triggers.so'" \
-      /etc/postgresql/9.3/main/postgresql.conf 
+      /etc/postgresql/9.3/main/postgresql.conf
 ADD ./template_postgis.sh /tmp/template_postgis.sh
 RUN service postgresql start && /bin/su postgres -c \
       /tmp/template_postgis.sh && service postgresql stop
@@ -90,6 +90,7 @@ RUN git clone git://github.com/CartoDB/cartodb.git && \
             '{print $2}' | sed -e 's,p55,-p55,' )' && cd /cartodb && \
             /bin/bash -l -c 'bundle install'"
 
+ENV CARTODB_DOMAIN cartodb.localhost
 # Copy confs
 ADD ./config/CartoDB-dev.js \
       /CartoDB-SQL-API/config/environments/development.js
