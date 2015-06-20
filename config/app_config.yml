@@ -4,81 +4,81 @@ defaults: &defaults
     csv_guessing:     false
   debug_assets: true
   mandatory_keys:     [layer_opts, sql_api, varnish_management, redis, session_domain]
-  session_domain:     '.<%= ENV['CARTODB_DOMAIN'] %>'
+  session_domain:     ".<%= ENV['CARTODB_DOMAIN'] %>"
   # If activated, urls will use usernames in format //SESSION_DOMAIN/user/USERNAME and ignore subdomains if present
   subdomainless_urls: false
   http_port:           # 3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
   https_port:          # nil|integer. HTTPS port to use when building urls. Leave empty to use default (443)
-  secret_token:       '71c2b25921b84a1cb21c71503ab8fb23'
-  account_host:       '<%= ENV['CARTODB_DOMAIN'] %>'
-  account_path:       '/account'
-  disable_file:       '~/disable'
+  secret_token:       "71c2b25921b84a1cb21c71503ab8fb23"
+  account_host:       "<%= ENV['CARTODB_DOMAIN'] %>"
+  account_path:       "/account"
+  disable_file:       "~/disable"
   watcher:
     ttl:              60
   tiler:
     internal:
-      protocol:      'http'
-      domain:        '<%= ENV['CARTODB_DOMAIN'] %>'
-      port:          '8181'
-      host:          '127.0.0.1'
+      protocol:       "http"
+      domain:         "<%= ENV['CARTODB_DOMAIN'] %>"
+      port:           8181
+      host:           '127.0.0.1'
       verifycert:     false
     private:
-      protocol:      'http'
-      domain:        '<%= ENV['CARTODB_DOMAIN'] %>'
-      port:          '80'
+      protocol:       "http"
+      domain:         "<%= ENV['CARTODB_DOMAIN'] %>"
+      port:           80
       verifycert:     false
     public:
-      protocol:      'http'
-      domain:        '<%= ENV['CARTODB_DOMAIN'] %>'
-      port:          '80'
+      protocol:       "http"
+      domain:         "<%= ENV['CARTODB_DOMAIN'] %>"
+      port:           80
       verifycert:     false
   sql_api:
     private:
-      protocol:   'http'
-      domain:     '<%= ENV['CARTODB_DOMAIN'] %>'
-      endpoint:   '/api/v2/sql'
-      port:       80
+      protocol:       "http"
+      domain:         "<%= ENV['CARTODB_DOMAIN'] %>"
+      endpoint:       '/api/v2/sql'
+      port:           80
     public:
-      protocol:   'http'
-      domain:     '<%= ENV['CARTODB_DOMAIN'] %>'
-      endpoint:   '/api/v2/sql'
-      port:       80
+      protocol:       "http"
+      domain:         "<%= ENV['CARTODB_DOMAIN'] %>"
+      endpoint:       '/api/v2/sql'
+      port:           80
   api_requests_service_url: ''
-  developers_host:    'http://developers.<%= ENV['CARTODB_DOMAIN'] %>'
+  developers_host:    "http://developers.<%= ENV['CARTODB_DOMAIN'] %>"
   google_analytics:
     primary:          ''
     embeds:           ''
     domain:           ''
   rollbar:
-    token: ''
+    token:            ''
   tumblr:
-    api_key: ''
+    api_key:          ''
   trackjs:
-    enabled: false
-    customer: ''
+    enabled:          false
+    customer:         ''
     app_keys:
-      editor: ''
-      embeds: ''
-  hubspot: ''
+      editor:         ''
+      embeds:         ''
+  hubspot:            ''
   common_data:
-    protocol: 'https'
-    username: 'common-data'
-    host: '<%= ENV['CARTODB_DOMAIN'] %>'
-    format: 'shp'
-    generate_every: 86400
+    protocol:         "https"
+    username:         "common-data"
+    host:             "<%= ENV['CARTODB_DOMAIN'] %>"
+    format:           "shp"
+    generate_every:   86400
   explore-api:
-    username: ''
+    username:         ''
   varnish_management:
-    critical: false
-    host: '127.0.0.1'
-    port: 6082
-    purge_command: 'purge'
-    retries: 5
-    timeout: 5
+    critical:         false
+    host:             '127.0.0.1'
+    port:             6082
+    purge_command:    'purge'
+    retries:          5
+    timeout:          5
   redis:
-    host: '127.0.0.1'
-    port: 6379
-    timeout: 20
+    host:             '127.0.0.1'
+    port:             6379
+    timeout:          20
     databases:
       tables_metadata:     0
       api_credentials:     3
@@ -149,10 +149,10 @@ defaults: &defaults
         debug:              false
         visible:            true
         tiler_domain:       "<%= ENV['CARTODB_DOMAIN'] %>"
-        tiler_port:         "8181"
+        tiler_port:         8181
         tiler_protocol:     "http"
         sql_domain:         "<%= ENV['CARTODB_DOMAIN'] %>"
-        sql_port:           "8080"
+        sql_port:           8080
         sql_protocol:       "http"
         extra_params:       { cache_policy: 'persist' }
         cdn_url:            ""
@@ -178,7 +178,7 @@ defaults: &defaults
         base_type: "roadmap"
         style: ""
   cartodb_com_hosted: false
-  cartodb_central_domain_name: '<%= ENV['CARTODB_DOMAIN'] %>'
+  cartodb_central_domain_name: "<%= ENV['CARTODB_DOMAIN'] %>"
   aws:
     s3:
       access_key_id: "test"
