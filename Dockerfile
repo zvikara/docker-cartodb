@@ -2,39 +2,44 @@
 # Cartodb container
 #
 FROM ubuntu:14.04
-MAINTAINER Adrien Fleury <fleu42@gmail.com>
+MAINTAINER Zvika Rap <zvikara@gmail.com>
 
 # Configuring locales
-RUN dpkg-reconfigure locales && \
-      locale-gen en_US.UTF-8 && \
+ENV DEBIAN_FRONTEND noninteractive
+RUN dpkg-reconfigure locales &&\
+      locale-gen en_US.UTF-8 &&\
       update-locale LANG=en_US.UTF-8
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Preparing apt
-RUN apt-get update && \
-      useradd -m -d /home/cartodb -s /bin/bash cartodb && \
-      apt-get install -y -q software-properties-common && \
-      add-apt-repository -y ppa:chris-lea/node.js && \
-      apt-get update 
-
-# Installing stuff 
-RUN apt-get install -y -q build-essential checkinstall unp zip libgeos-c1 \
-      libgeos-dev libjson0 python-simplejson libjson0-dev proj-bin \
-      proj-data libproj-dev postgresql-9.3 postgresql-client-9.3 \
-      postgresql-contrib-9.3 postgresql-server-dev-9.3 \
-      postgresql-plpython-9.3 gdal-bin libgdal1-dev nodejs \
-      redis-server python2.7-dev build-essential python-setuptools \
-      varnish imagemagick git postgresql-9.3-postgis-2.1 libmapnik-dev \
-      python-mapnik mapnik-utils postgresql-9.3-postgis-2.1-scripts postgis \
-      python-argparse python-gdal python-chardet openssl libreadline6 curl \
-      git-core zlib1g zlib1g-dev libssl-dev libyaml-dev \
-      libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf \
-      libc6-dev ncurses-dev automake libtool bison subversion \
-      pkg-config libpq5 libpq-dev libcurl4-gnutls-dev libffi-dev \
-      libgdbm-dev gnupg libreadline6-dev libcairo2-dev libjpeg8-dev \
-      libpango1.0-dev libgif-dev
+RUN \
+  useradd -m -d /home/cartodb -s /bin/bash cartodb &&\
+  apt-get install -y -q software-properties-common &&\
+  add-apt-repository -y ppa:chris-lea/node.js &&\
+  apt-get update &&\
+  apt-get install -y -q \
+    build-essential \
+    checkinstall \
+    unp \
+    zip \
+    libgeos-c1 \
+    libgeos-dev libjson0 python-simplejson libjson0-dev proj-bin \
+    proj-data libproj-dev postgresql-9.3 postgresql-client-9.3 \
+    postgresql-contrib-9.3 postgresql-server-dev-9.3 \
+    postgresql-plpython-9.3 gdal-bin libgdal1-dev nodejs \
+    redis-server python2.7-dev build-essential python-setuptools \
+    varnish imagemagick git postgresql-9.3-postgis-2.1 libmapnik-dev \
+    python-mapnik mapnik-utils postgresql-9.3-postgis-2.1-scripts postgis \
+    python-argparse python-gdal python-chardet openssl libreadline6 curl \
+    git-core zlib1g zlib1g-dev libssl-dev libyaml-dev \
+    libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf \
+    libc6-dev ncurses-dev automake libtool bison subversion \
+    pkg-config libpq5 libpq-dev libcurl4-gnutls-dev libffi-dev \
+    libgdbm-dev gnupg libreadline6-dev libcairo2-dev libjpeg8-dev \
+    libpango1.0-dev libgif-dev \
+  --no-install-recommends &&\
+  rm -rf /var/lib/apt/lists/*
 
 # Install rvm
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
@@ -59,7 +64,7 @@ RUN git clone https://github.com/CartoDB/pg_schema_triggers.git && \
       make all install && \
       sed -i \
       "/#shared_preload/a shared_preload_libraries = 'schema_triggers.so'" \
-      /etc/postgresql/9.3/main/postgresql.conf 
+      /etc/postgresql/9.3/main/postgresql.conf
 ADD ./template_postgis.sh /tmp/template_postgis.sh
 RUN service postgresql start && /bin/su postgres -c \
       /tmp/template_postgis.sh && service postgresql stop
@@ -90,6 +95,7 @@ RUN git clone git://github.com/CartoDB/cartodb.git && \
             '{print $2}' | sed -e 's,p55,-p55,' )' && cd /cartodb && \
             /bin/bash -l -c 'bundle install'"
 
+ENV CARTODB_DOMAIN cartodb.localhost
 # Copy confs
 ADD ./config/CartoDB-dev.js \
       /CartoDB-SQL-API/config/environments/development.js
