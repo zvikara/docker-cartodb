@@ -1,13 +1,9 @@
 nginx:
-  image: nginx
+  build: nginx
   ports:
   - 80:80
   links:
   - cardodb
-  volumes:
-  - $(pwd)/config/cartodb.nginx.proxy.conf:/etc/nginx/conf.d/cartodb.conf
-  environment:
-    CARTODB_DOMAIN: cartodb.gpspg.com
 
 cardodb:
   build: .
