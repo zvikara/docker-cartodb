@@ -3,9 +3,13 @@ nginx:
   ports:
   - 80:80
   links:
-  - cardodb:cardodb
+  - cardodb
 
 cardodb:
   build: .
+  expose:
+  - 3000
+  - 8080
+  - 8181
   extra_hosts:
   - "cartodb.gpspg.com:127.0.0.1"
