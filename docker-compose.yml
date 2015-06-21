@@ -3,7 +3,7 @@ nginx:
   ports:
   - 80:80
   links:
-  - cardodb
+  - cardodb:cardodb
 
 cardodb:
   build: .
