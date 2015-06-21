@@ -10,7 +10,7 @@ defaults: &defaults
   http_port:           # 3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
   https_port:          # nil|integer. HTTPS port to use when building urls. Leave empty to use default (443)
   secret_token:       '71c2b25921b84a1cb21c71503ab8fb23'
-  account_host:       'cartodb.gpspg.com:3000'
+  account_host:       'cartodb.gpspg.com'
   account_path:       '/account'
   disable_file:       '~/disable'
   watcher:
@@ -19,30 +19,30 @@ defaults: &defaults
     internal:
       protocol:      'http'
       domain:        'cartodb.gpspg.com'
-      port:          80
+      port:          8181
       host:          '127.0.0.1'
       verifycert:    false
     private:
       protocol:      'http'
       domain:        'cartodb.gpspg.com'
-      port:          80
+      port:          8181
       verifycert:    false
     public:
       protocol:      'http'
       domain:        'cartodb.gpspg.com'
-      port:          80
+      port:          8181
       verifycert:    false
   sql_api:
     private:
       protocol:   'http'
       domain:     'cartodb.gpspg.com'
       endpoint:   '/api/v2/sql'
-      port:       80
+      port:       8080
     public:
       protocol:   'http'
       domain:     'cartodb.gpspg.com'
       endpoint:   '/api/v2/sql'
-      port:       80
+      port:       8080
   api_requests_service_url: ''
   developers_host:    'http://developers.cartodb.gpspg.com:3000'
   google_analytics:
@@ -61,7 +61,7 @@ defaults: &defaults
       embeds: ''
   hubspot: ''
   common_data:
-    protocol: 'https'
+    protocol: 'http'
     username: 'common-data'
     host: 'cartodb.gpspg.com'
     format: 'shp'
@@ -149,10 +149,10 @@ defaults: &defaults
         debug:              false
         visible:            true
         tiler_domain:       "cartodb.gpspg.com"
-        tiler_port:         "8181"
+        tiler_port:         8181
         tiler_protocol:     "http"
         sql_domain:         "cartodb.gpspg.com"
-        sql_port:           "8080"
+        sql_port:           8080
         sql_protocol:       "http"
         extra_params:       { cache_policy: 'persist' }
         cdn_url:            ""

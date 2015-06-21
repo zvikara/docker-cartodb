@@ -110,7 +110,7 @@ ENV PATH /usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/s
 #	bash -l -c "cd /cartodb && bash script/create_dev_user && bash script/setup_organization.sh" && \
 #	service postgresql stop && service redis-server stop
 
-EXPOSE 80 3000 8080 8181
+EXPOSE 3000 8080 8181
 
 
 ADD ./startup.sh /opt/startup.sh
