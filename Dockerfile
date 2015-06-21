@@ -106,11 +106,11 @@ ADD ./config/database.yml /cartodb/config/database.yml
 ADD ./create_dev_user /cartodb/script/create_dev_user
 ADD ./setup_organization.sh /cartodb/script/setup_organization.sh
 ENV PATH /usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-RUN service postgresql start && service redis-server start && \
-	bash -l -c "cd /cartodb && bash script/create_dev_user && bash script/setup_organization.sh" && \
-	service postgresql stop && service redis-server stop
+#RUN service postgresql start && service redis-server start && \
+#	bash -l -c "cd /cartodb && bash script/create_dev_user && bash script/setup_organization.sh" && \
+#	service postgresql stop && service redis-server stop
 
-EXPOSE 3000 8080 8181
+EXPOSE 80 3000 8080 8181
 
 
 ADD ./startup.sh /opt/startup.sh
