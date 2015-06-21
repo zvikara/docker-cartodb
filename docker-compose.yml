@@ -3,9 +3,9 @@ nginx:
   ports:
   - 80:80
   links:
-  - cardodb
+  - cartodb
 
-cardodb:
+cartodb:
   build: .
   expose:
   - 3000
