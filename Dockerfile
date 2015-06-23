@@ -135,7 +135,7 @@ RUN git clone git://github.com/CartoDB/Windshaft-cartodb.git && \
 
 # Install CartoDB
 RUN ls
-RUN git clone -b docker --single-branch --depth 1 git://github.com/CartoDB/cartodb.git
+RUN git clone -b master --single-branch --depth 1 git://github.com/CartoDB/cartodb.git
 RUN cd cartodb && /bin/bash -l -c 'bundle install'
 
 ENV CARTODB_DOMAIN cartodb.localhost
