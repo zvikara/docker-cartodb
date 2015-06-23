@@ -20,24 +20,72 @@ RUN \
   apt-get update &&\
   apt-get install -y -q \
     build-essential \
+    autoconf \
+    automake \
+    libtool \
     checkinstall \
     unp \
     zip \
+    unzip \
+    git-core \
+    git \
+    subversion \
+    curl \
     libgeos-c1 \
-    libgeos-dev libjson0 python-simplejson libjson0-dev proj-bin \
-    proj-data libproj-dev postgresql-9.3 postgresql-client-9.3 \
-    postgresql-contrib-9.3 postgresql-server-dev-9.3 \
-    postgresql-plpython-9.3 gdal-bin libgdal1-dev nodejs \
-    redis-server python2.7-dev build-essential python-setuptools \
-    varnish imagemagick git postgresql-9.3-postgis-2.1 libmapnik-dev \
-    python-mapnik mapnik-utils postgresql-9.3-postgis-2.1-scripts postgis \
-    python-argparse python-gdal python-chardet openssl libreadline6 curl \
-    git-core zlib1g zlib1g-dev libssl-dev libyaml-dev \
-    libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf \
-    libc6-dev ncurses-dev automake libtool bison subversion \
-    pkg-config libpq5 libpq-dev libcurl4-gnutls-dev libffi-dev \
-    libgdbm-dev gnupg libreadline6-dev libcairo2-dev libjpeg8-dev \
-    libpango1.0-dev libgif-dev \
+    libgeos-dev \
+    libjson0 \
+    python-simplejson \
+    libjson0-dev \
+    proj-bin \
+    proj-data \
+    libproj-dev \
+    gdal-bin \
+    libgdal1-dev \
+    postgresql-9.3 \
+    postgresql-client-9.3 \
+    postgresql-contrib-9.3 \
+    postgresql-server-dev-9.3 \
+    postgresql-plpython-9.3 \
+    postgresql-9.3-postgis-2.1 \
+    postgresql-9.3-postgis-2.1-scripts \
+    postgis \
+    nodejs \
+    redis-server \
+    python2.7-dev \
+    python-setuptools \
+    varnish \
+    imagemagick \
+    libmapnik-dev \
+    mapnik-utils \
+    python-mapnik \
+    python-argparse \
+    python-gdal \
+    python-chardet \
+    openssl \
+    libreadline6 \
+    zlib1g \
+    zlib1g-dev \
+    libssl-dev \
+    libyaml-dev \
+    libsqlite3-dev \
+    sqlite3 \
+    libxml2-dev \
+    libxslt-dev \
+    libc6-dev \
+    ncurses-dev \
+    bison \
+    pkg-config \
+    libpq5 \
+    libpq-dev \
+    libcurl4-gnutls-dev \
+    libffi-dev \
+    libgdbm-dev \
+    gnupg \
+    libreadline6-dev \
+    libcairo2-dev \
+    libjpeg8-dev \
+    libpango1.0-dev \
+    libgif-dev \
   --no-install-recommends &&\
   rm -rf /var/lib/apt/lists/*
 
@@ -85,15 +133,10 @@ RUN git clone git://github.com/CartoDB/CartoDB-SQL-API.git && \
 RUN git clone git://github.com/CartoDB/Windshaft-cartodb.git && \
       cd Windshaft-cartodb && ./configure && npm install && mkdir logs
 
-# Install CartoDB (with the bug correction on bundle install)
-RUN git clone git://github.com/CartoDB/cartodb.git && \
-      cd cartodb && /bin/bash -l -c 'bundle install' || \
-      /bin/bash -l -c "cd $(/bin/bash -l -c 'gem contents \
-            debugger-ruby_core_source' | grep CHANGELOG | sed -e \
-            's,CHANGELOG.md,,') && /bin/bash -l -c 'rake add_source \
-            VERSION=$(/bin/bash -l -c 'ruby --version' | awk \
-            '{print $2}' | sed -e 's,p55,-p55,' )' && cd /cartodb && \
-            /bin/bash -l -c 'bundle install'"
+# Install CartoDB
+RUN ls
+RUN git clone -b docker --single-branch --depth 1 git://github.com/zvikara/cartodb.git
+RUN cd cartodb && /bin/bash -l -c 'bundle install'
 
 ENV CARTODB_DOMAIN cartodb.localhost
 # Copy confs
@@ -107,8 +150,8 @@ ADD ./create_dev_user /cartodb/script/create_dev_user
 ADD ./setup_organization.sh /cartodb/script/setup_organization.sh
 ENV PATH /usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 RUN service postgresql start && service redis-server start && \
-	bash -l -c "cd /cartodb && bash script/create_dev_user && bash script/setup_organization.sh" && \
-	service postgresql stop && service redis-server stop
+  bash -l -c "cd /cartodb && bash script/create_dev_user && bash script/setup_organization.sh" && \
+  service postgresql stop && service redis-server stop
 
 EXPOSE 3000 8080 8181
 

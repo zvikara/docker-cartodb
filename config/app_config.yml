@@ -25,24 +25,24 @@ defaults: &defaults
     private:
       protocol:      'http'
       domain:        'cartodb.gpspg.com'
-      port:          8181
+      port:          80
       verifycert:    false
     public:
       protocol:      'http'
       domain:        'cartodb.gpspg.com'
-      port:          8181
+      port:          80
       verifycert:    false
   sql_api:
     private:
       protocol:   'http'
       domain:     'cartodb.gpspg.com'
       endpoint:   '/api/v2/sql'
-      port:       8080
+      port:       80
     public:
       protocol:   'http'
       domain:     'cartodb.gpspg.com'
       endpoint:   '/api/v2/sql'
-      port:       8080
+      port:       80
   api_requests_service_url: ''
   developers_host:    'http://developers.cartodb.gpspg.com:3000'
   google_analytics:
@@ -149,10 +149,10 @@ defaults: &defaults
         debug:              false
         visible:            true
         tiler_domain:       "cartodb.gpspg.com"
-        tiler_port:         8181
+        tiler_port:         80
         tiler_protocol:     "http"
         sql_domain:         "cartodb.gpspg.com"
-        sql_port:           8080
+        sql_port:           80
         sql_protocol:       "http"
         extra_params:       { cache_policy: 'persist' }
         cdn_url:            ""
