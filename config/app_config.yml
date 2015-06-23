@@ -1,12 +1,12 @@
 defaults: &defaults
   ogr2ogr:
     binary:           'which ogr2ogr'
-    csv_guessing:     false
+    csv_guessing:     true
   debug_assets: true
   mandatory_keys:     [layer_opts, sql_api, varnish_management, redis, session_domain]
   session_domain:     '.cartodb.gpspg.com'
   # If activated, urls will use usernames in format //SESSION_DOMAIN/user/USERNAME and ignore subdomains if present
-  subdomainless_urls: false
+  subdomainless_urls: true
   http_port:           # 3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
   https_port:          # nil|integer. HTTPS port to use when building urls. Leave empty to use default (443)
   secret_token:       '71c2b25921b84a1cb21c71503ab8fb23'
@@ -168,7 +168,7 @@ defaults: &defaults
       options:
         visible:      true
         type:         "Tiled"
-        urlTemplate:  "https://maps.nlp.nokia.com/maptiler/v2/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24"
+        urlTemplate:  "https://base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24"
         name:         'Nokia Day'
         className:    "nokia_day"
         attribution:  "©2012 Nokia <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
@@ -190,7 +190,7 @@ defaults: &defaults
     asset_host: "//cartodb-libs.global.ssl.fastly.net/cartodbui"
   avatars:
     base_url: '//cartodb-libs.global.ssl.fastly.net/cartodbui/assets/unversioned/images/avatars'
-    kinds: ['ghost', 'marker', 'mountain', 'pacman', 'planet', 'stars']
+    kinds: ['ghost', 'heart', 'marker', 'mountain', 'pacman', 'planet', 'star']
     colors: ['green', 'orange', 'red', 'yellow']
   dropbox_api_key: ""
   gdrive:
@@ -211,7 +211,7 @@ defaults: &defaults
       application_name:     ''
       client_id:            ''
       client_secret:        ''
-      callback_url:         'http://cartodb.com'
+      callback_url:         'http://cartodb.gpspg.com'
     google_plus:
       client_id: ''
       cookie_policy: 'single_host_origin'
@@ -263,35 +263,6 @@ defaults: &defaults
   user_feature_flags:
     rambo:    ['ghost_tables']
   basemaps:
-    Nokia:
-      normal_day:
-        url: 'https://maps.nlp.nokia.com/maptiler/v2/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
-        minZoom: '0'
-        maxZoom: '21'
-        className:    "nokia_normal_day"
-        attribution:  "©2012 Nokia <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
-        name: 'Nokia normal Day'
-      terrain_day:
-        url: 'https://maps.nlp.nokia.com/maptiler/v2/maptile/newest/terrain.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
-        minZoom: '0'
-        maxZoom: '21'
-        className:    "nokia_terrain_day"
-        attribution:  "©2012 Nokia <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
-        name: 'Nokia Terrain Day'
-      satellite_day:
-        url: 'https://maps.nlp.nokia.com/maptiler/v2/maptile/newest/satellite.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
-        minZoom: '0'
-        maxZoom: '21'
-        className:    "nokia_satellite_day"
-        attribution:  "©2012 Nokia <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
-        name: 'Nokia Satellite Day'
-      hybrid_day:
-        url: 'https://maps.nlp.nokia.com/maptiler/v2/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
-        minZoom: '0'
-        maxZoom: '21'
-        className:    "nokia_hybrid_day"
-        attribution:  "©2012 Nokia <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
-        name: 'Nokia hybrid Day'
     CartoDB:
       positron_rainbow:
         default: true
@@ -301,7 +272,7 @@ defaults: &defaults
         maxZoom: '18'
         name: 'Positron'
         className: 'positron_rainbow'
-        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href= "http://cartodb.com/attributions#basemaps">CartoDB</a>'
+        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href= "http://cartodb.com/attributions">CartoDB</a>'
       dark_matter_rainbow:
         url: 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'
         subdomains: 'abcd'
@@ -309,7 +280,7 @@ defaults: &defaults
         maxZoom: '18'
         name: 'Dark matter'
         className: 'dark_matter_rainbow'
-        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>'
+        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="http://cartodb.com/attributions">CartoDB</a>'
       positron_lite_rainbow:
         url: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png'
         subdomains: 'abcd'
@@ -317,7 +288,7 @@ defaults: &defaults
         maxZoom: '18'
         name: 'Positron (lite)'
         className: 'positron_lite_rainbow'
-        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>'
+        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="http://cartodb.com/attributions">CartoDB</a>'
       dark_matter_lite_rainbow:
         url: 'http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png'
         subdomains: 'abcd'
@@ -325,9 +296,9 @@ defaults: &defaults
         maxZoom: '18'
         name: 'Dark matter (lite)'
         className: 'dark_matter_lite_rainbow'
-        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="http://cartodb.com/attributions#basemaps">CartoDB</a>'
+        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="http://cartodb.com/attributions">CartoDB</a>'
       eco_cartodb:
-        url: 'https://cartocdn_{s}.global.ssl.fastly.net/base-antique/{z}/{x}/{y}.png'
+        url: 'https://cartocdn_{s}.global.ssl.fastly.net/base-eco/{z}/{x}/{y}.png'
         subdomains: 'abcd'
         minZoom: '0'
         maxZoom: '10'
@@ -349,6 +320,14 @@ defaults: &defaults
         maxZoom: '10'
         name: 'CartoDB World Midnight Commander'
         className: 'midnight_cartodb'
+        attribution: ''
+      midnight_cartodb:
+        url: 'https://cartocdn_{s}.global.ssl.fastly.net/base-antique/{z}/{x}/{y}.png'
+        subdomains: 'abcd'
+        minZoom: '0'
+        maxZoom: '10'
+        name: 'CartoDB World Antique'
+        className: 'antique_cartodb'
         attribution: ''
     Stamen:
       toner_stamen:
@@ -399,6 +378,111 @@ defaults: &defaults
         name: 'Watercolor'
         className: 'watercolor_stamen'
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
+    Here:
+      normal_day:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_day"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Day'
+      normal_day_grey:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_day_grey"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Day Grey'
+      normal_day_transit:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.day.transit/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_day_transit"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Day Transit'
+      reduced_day:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/reduced.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_reduced_day"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Reduced Day'
+      pedestrian_day:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/pedestrian.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_pedestrian_day"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Pedestrian Day'
+      carnav_day_grey:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/carnav.day.grey/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_carnav_day_grey"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Carnav Day Grey'
+      terrain_day:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/terrain.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_terrain_day"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Terrain Day'
+      hybrid_day:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_hybrid_day"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Hybrid Day'
+      satellite_day:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/satellite.day/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_satellite_day"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Satellite Day'
+      normal_night:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.night/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_night"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Night'
+      normal_night:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.night/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_night"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Night'
+      normal_night_grey:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.night.grey/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_night_grey"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Night Grey'
+      reduced_night:
+        url: 'https://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/reduced.night/{z}/{x}/{y}/256/png8?lg=eng&token=A7tBPacePg9Mj_zghvKt9Q&app_id=KuYppsdXZznpffJsKT24'
+        subdomains: '1234'
+        minZoom: '0'
+        maxZoom: '21'
+        className:    "nokia_reduced_night"
+        attribution:  "©2015 HERE <a href='http://here.net/services/terms' target='_blank'>Terms of use</a>"
+        name: 'Nokia Reduced Night'
 
 development:
   <<: *defaults
